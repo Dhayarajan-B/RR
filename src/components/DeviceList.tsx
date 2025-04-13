@@ -17,7 +17,7 @@ const DeviceList = () => {
   const [devices, setDevices] = useState<Device[]>([]);
 
   useEffect(() => {
-    let websocket: WebSocket;
+    let websocket: WebSocket | null = null;
 
     const connectWebSocket = () => {
       websocket = new WebSocket('ws://localhost:3001');
@@ -51,7 +51,9 @@ const DeviceList = () => {
     connectWebSocket();
 
     return () => {
-      websocket.close();
+      if (websocket && websocket.readyState === WebSocket.OPEN) {
+        websocket.close();
+      }
     };
   }, []);
 
