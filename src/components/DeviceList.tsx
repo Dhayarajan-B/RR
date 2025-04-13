@@ -44,7 +44,9 @@ const DeviceList = () => {
       };
 
       websocket.onerror = (error) => {
-        console.error('WebSocket error:', error);
+        if (error) {
+          console.error('WebSocket error:', error);
+        }
       };
     };
 
